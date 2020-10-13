@@ -14,10 +14,7 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  let myDatabase = firebase.database();
-  myDatabase.ref("User").on('value', ss=>{
-    alert(ss.val());
-  });
+  
 
 const canvas = document.getElementById('canvasOne');
 const cntxt = canvas.getContext('2d');
@@ -34,11 +31,18 @@ let hue = 0;
 let currentFrame = 0;
 let gameSpeed = 2;
 let score = 0;
+let highscore = 0;
+
+
+
+
 
 function animate() {
     cntxt.clearRect(0, 0, canvas.width, canvas.height);
 
     generateTerrain();
+
+    
 
     heli.update();
     heli.draw();
@@ -56,6 +60,15 @@ function animate() {
         gameSpeed += 0.001;
     }
 }
+
+function NameInput(){
+   
+    let userName = document.getElementById("the-user").value;
+    console.log(userName);
+    
+};
+ 
+//NameInput();
 animate();
 
 window.addEventListener('keydown', function(e) {
@@ -95,3 +108,6 @@ function gameOver() {
 
     // POP UP SOME WINDOW WITH A LEADERBOARD OF ALL HIGHSCORES
 }
+
+
+
