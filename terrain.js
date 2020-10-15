@@ -25,11 +25,8 @@ class Terrain {
             score++;
             this.passed = true;
         }
-        firebase.database().ref("Humphrey").set(score)
-        firebase.database().ref("Humphrey").on("value", function (snapshot) {
-            let highScore = snapshot.val();
-            console.log(highScore);
-          });
+
+        
         this.draw();
     }
 }
