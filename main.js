@@ -1,6 +1,3 @@
-
-
-
 // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyAcaolUQc2F3MAUswr4Ip_PQQIQnM9OzIY",
@@ -45,16 +42,19 @@ let score = 0;
 let highscore = 0;
 
 let gameRunning = false;
-
+const startGameBtn = document.getElementById("start");
 let startGame = function(){
     gameRunning = true;
+    startGameBtn.disabled = true;
     animate();
   }
   
-document.getElementById("start").addEventListener("click", startGame);
+startGameBtn.addEventListener("click", startGame);
+
 
 
 function animate() {
+    console.log("Animating");
     cntxt.clearRect(0, 0, canvas.width, canvas.height);
 
     generateTerrain();
@@ -77,9 +77,6 @@ function animate() {
         gameSpeed += 0.001;
     }
 }
-
-
-
 //NameInput();
 //animate();
 
@@ -100,8 +97,10 @@ function collisionDetected() {
             ((heli.y < 0 + terrainArr[i].topHeight && heli.y + heli.height > 0) ||
                 (heli.y > canvas.height - terrainArr[i].bottomHeight &&
                     heli.y + heli.height < canvas.height))) {
-            setTimeout(gameOver, 100);
-            return true;    // collision detected
+                console.log("COLLISION DETECTED");
+
+                setTimeout(gameOver, 100);
+                return true;    // collision detected
         }
     }
 }
@@ -113,15 +112,16 @@ function drawScore() {
 }
 
 function gameOver() {
+    console.log("game over entered");
     cntxt.font = '50px Verdana'
     cntxt.fillText("GAME OVER", canvas.width / 2 - 140, canvas.height / 2 + 20);
     if(gameRunning){
-    gameRunning = false;
-    let pretendPlayer = { name: document.querySelector('#the-user').value || 'Anonymous', score: score };
-    let newRef = leaderboardref.push();
-    newRef.set(pretendPlayer);
+        gameRunning = false;
+        let pretendPlayer = { name: document.querySelector('#the-user').value || 'Anonymous', score: score };
+        let newRef = leaderboardref.push();
+        newRef.set(pretendPlayer);
 
-
+        console.log("sending data");
     // SEND HIGHSCORE TO DATABASE HERE AND MAYBE INCLUDE USERNAMES
     leaderboardref.once('value', ss => {
         document.querySelector("ul").innerHTML = '';
@@ -138,6 +138,7 @@ function gameOver() {
             document.querySelector("ul").appendChild($li);
         })
     });
+    console.log("sent data");
 }
     // POP UP SOME WINDOW WITH A LEADERBOARD OF ALL HIGHSCORES
 }

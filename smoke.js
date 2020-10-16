@@ -25,7 +25,6 @@ class Smoke {
 }
 
 function generateSmoke() {
-    console.log("generating smoke")
     smokeArr.unshift(new Smoke);
     for(let i = 0; i < smokeArr.length; i++){
         smokeArr[i].update();
