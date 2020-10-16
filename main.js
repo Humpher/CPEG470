@@ -97,7 +97,7 @@ function collisionDetected() {
             ((heli.y < 0 + terrainArr[i].topHeight && heli.y + heli.height > 0) ||
                 (heli.y > canvas.height - terrainArr[i].bottomHeight &&
                     heli.y + heli.height < canvas.height))) {
-                console.log("COLLISION DETECTED");
+                
 
                 setTimeout(gameOver, 100);
                 return true;    // collision detected
@@ -112,7 +112,7 @@ function drawScore() {
 }
 
 function gameOver() {
-    console.log("game over entered");
+   
     cntxt.font = '50px Verdana'
     cntxt.fillText("GAME OVER", canvas.width / 2 - 140, canvas.height / 2 + 20);
     if(gameRunning){
@@ -121,7 +121,7 @@ function gameOver() {
         let newRef = leaderboardref.push();
         newRef.set(pretendPlayer);
 
-        console.log("sending data");
+        
     // SEND HIGHSCORE TO DATABASE HERE AND MAYBE INCLUDE USERNAMES
     leaderboardref.once('value', ss => {
         document.querySelector("ul").innerHTML = '';
@@ -138,7 +138,8 @@ function gameOver() {
             document.querySelector("ul").appendChild($li);
         })
     });
-    console.log("sent data");
+    startGameBtn.disabled = false;
+    
 }
     // POP UP SOME WINDOW WITH A LEADERBOARD OF ALL HIGHSCORES
 }
